@@ -131,10 +131,10 @@ class CameraRollPicker extends Component {
     }
 
     CameraRoll.getPhotos(fetchParams)
-      .then(data => this.appendImages(data), e => console.log(e));
+      .then(data => {console.log('data', data);this.appendImages(data)}, e => console.log(e));
   }
 
-  selectImage(image) {
+  selectImage(image, item) {
     const {
       maximum, imagesPerRow, callback, selectSingleItem,
     } = this.props;
@@ -158,7 +158,7 @@ class CameraRollPicker extends Component {
       data: nEveryRow(this.state.images, imagesPerRow),
     });
 
-    callback(selected, image);
+    callback(selected, image, item);
   }
 
   renderImage(item) {

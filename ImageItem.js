@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
+  Image, StyleSheet, Dimensions, TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -14,8 +11,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     right: 5,
-    backgroundColor: 'transparent',
-  },
+    backgroundColor: 'transparent'
+  }
 });
 
 class ImageItem extends Component {
@@ -29,32 +26,31 @@ class ImageItem extends Component {
     this.imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
   }
 
-  handleClick(item) {
-    this.props.onClick(item);
+  handleClick(image, item) {
+    this.props.onClick(image, item);
   }
 
   render() {
     const {
-      item, selected, selectedMarker, imageMargin,
+      item, selected, selectedMarker, imageMargin
     } = this.props;
 
-    const marker = selectedMarker || (<Image
-      style={[styles.marker, { width: 25, height: 25 }]}
-      source={checkIcon}
-    />);
+    const marker = selectedMarker || (
+      <Image style={[styles.marker, { width: 25, height: 25 }]} source={checkIcon} />
+    );
 
     const { image } = item.node;
 
     return (
       <TouchableOpacity
         style={{ marginBottom: imageMargin, marginRight: imageMargin }}
-        onPress={() => this.handleClick(image)}
+        onPress={() => this.handleClick(image, item)}
       >
         <Image
           source={{ uri: image.uri }}
           style={{ height: this.imageSize, width: this.imageSize }}
         />
-        {(selected) ? marker : null}
+        {selected ? marker : null}
       </TouchableOpacity>
     );
   }
@@ -62,7 +58,7 @@ class ImageItem extends Component {
 
 ImageItem.defaultProps = {
   item: {},
-  selected: false,
+  selected: false
 };
 
 ImageItem.propTypes = {
@@ -71,7 +67,7 @@ ImageItem.propTypes = {
   selectedMarker: PropTypes.element,
   imageMargin: PropTypes.number,
   imagesPerRow: PropTypes.number,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 export default ImageItem;
