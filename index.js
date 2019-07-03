@@ -234,7 +234,6 @@ class CameraRollPicker extends Component {
         style={{ flex: 1 }}
         ListFooterComponent={this.renderFooterSpinner}
         initialNumToRender={initialNumToRender}
-        onEndReached={this.onEndReached}
         renderItem={({ item }) => this.renderRow(item)}
         keyExtractor={item => item[0].node.image.uri}
         data={this.state.data}
