@@ -205,8 +205,10 @@ class CameraRollPicker extends Component {
   }
 
   renderFooterSpinner() {
+    const { footerComponent } = this.props;
     if (!this.state.noMore) {
-      return <ActivityIndicator style={styles.spinner} />;
+      const component = footerComponent || <ActivityIndicator style={styles.spinner} />;
+      return component;
     }
     return null;
   }
@@ -255,6 +257,7 @@ class CameraRollPicker extends Component {
 
 CameraRollPicker.propTypes = {
   initialNumToRender: PropTypes.number,
+  footerComponent: PropTypes.element,
   groupTypes: PropTypes.oneOf([
     'Album',
     'All',
