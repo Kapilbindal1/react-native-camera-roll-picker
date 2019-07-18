@@ -85,21 +85,34 @@ class CameraRollPicker extends Component {
       this.fetch();
     }
   }
+  
+    filteredImages(images) {
+    const obj = {};
+    if (images && images.length > 0) {
+      for (let i = 0; i < images.length; i++) {
+        const uri = images[i].node.image.uri;
+        if (!obj[uri]) {
+          obj[uri] = images[i];
+        }
+      }
+    }
+    return Object.values(obj);
+  }
 
   appendImages(data) {
     const assets = data.edges;
     const newState = {
       loadingMore: false,
-      initialLoading: false,
+      initialLoading: false
     };
 
     if (!data.page_info.has_next_page) {
       newState.noMore = true;
     }
-
     if (assets.length > 0) {
       newState.lastCursor = data.page_info.end_cursor;
-      newState.images = this.state.images.concat(assets);
+      const allImages = this.state.images.concat(assets);
+      newState.images = this.filteredImages(allImages);
       newState.data = nEveryRow(newState.images, this.props.imagesPerRow);
     }
 
